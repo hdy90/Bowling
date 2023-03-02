@@ -9,7 +9,7 @@ namespace Bowling.Model
     public class PlayerResults
     {
         public string PlayerName { get; set; }
-        public IEnumerable<int> ResultsInRounds { get; set; }
+        public List<int> ResultsInRounds { get; set; }
         public int Sum { get; set; }
         public PlayerResults()
         {
