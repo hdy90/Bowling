@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bowling.Service;
+using Bowling.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,12 @@ namespace Bowling
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new BowlingViewModel();
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
