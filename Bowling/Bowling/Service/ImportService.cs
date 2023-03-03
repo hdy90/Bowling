@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Bowling.Model;
@@ -11,16 +12,18 @@ namespace Bowling.Service
         /// <summary>
         /// Try to import data from file, needs empty list and path to file
         /// </summary>
-        /// <param name="bowlingList"></param>
+        /// <param name="playerResults"></param>
         /// <param name="filePath"></param>
-        public static void ImportData(List<PlayerResults> bowlingList, string filePath)
+        public static bool ImportData(ObservableCollection<PlayerResults> playerResults, string filePath)
         {
+            playerResults.Clear();
             if (!CanContinue(filePath))
-                return;
+                return false;
 
             try
             {
-                Start(filePath, bowlingList);
+                Start(filePath, playerResults);
+                return true;
             }
             catch (Exception)
             {
@@ -28,7 +31,7 @@ namespace Bowling.Service
             }            
         }
 
-        private static void Start(string filePath, List<PlayerResults> bowlingList)
+        private static void Start(string filePath, ObservableCollection<PlayerResults> bowlingList)
         {
             string[] data = System.IO.File.ReadAllLines(filePath);
             bool newPlayer = true;
@@ -48,7 +51,7 @@ namespace Bowling.Service
                 } else
                 {
                     var results = line.Split(", ").Select(int.Parse).ToList();
-                    tmpPlayer.ResultsInRounds.AddRange(results);
+                    tmpPlayer.Throws.AddRange(results);
 
                     newPlayer = !newPlayer;
                 }
