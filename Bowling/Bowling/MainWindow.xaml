@@ -5,9 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bowling"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="btnStart" Content="Button" HorizontalAlignment="Left" Margin="246,306,0,0" VerticalAlignment="Top" Command="{Binding GetData}"/>
+        Title="Bowling" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>        
+        <DockPanel LastChildFill="True">
+            <GroupBox Grid.Column="1" Header="Operacje:" Grid.Row="1" DockPanel.Dock="Top">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnPickFile" Margin="10" Width="100" Content="Wybierz plik" HorizontalAlignment="Left"  VerticalAlignment="Top" Command="{Binding PickFile}" Grid.Column="0" Grid.Row="0"/>
+                    <Label x:Name="lblFilePath" Margin="5" Content="{Binding FilePath}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0"/>
+                    <Button x:Name="btnStart" Margin="10" Width="100" Content="Pobierz wyniki" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding GetData}" Grid.Column="0" Grid.Row="1"/>
+                </Grid>
+            </GroupBox>            
+            
+            <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                <DataGrid x:Name="dgPlayers" ItemsSource="{Binding PlayerResults}" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn CanUserSort="True" Width="150" Header="Zawodnik" Binding="{Binding PlayerName}"></DataGridTextColumn>
+                        <DataGridTextColumn CanUserSort="True" Width="100" Header="Wynik" Binding="{Binding Sum}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn CanUserSort="False" Header="Punkty w rzutach" Binding="{Binding ResultsInRoundsFormatted}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </DockPanel>
 
     </Grid>
 </Window>

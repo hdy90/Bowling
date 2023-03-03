@@ -1,4 +1,5 @@
-﻿using Bowling.Service;
+﻿using Bowling.Model;
+using Bowling.Service;
 using Bowling.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,6 @@ namespace Bowling
         {
             InitializeComponent();
             DataContext = new BowlingViewModel();
-        }
-
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }
