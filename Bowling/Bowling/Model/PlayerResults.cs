@@ -11,10 +11,10 @@ namespace Bowling.Model
     public class PlayerResults
     {
         public string PlayerName { get; set; }
-        public List<int> Throws { get; set; }
-        private List<Frame> Frames {get;set;}
+        public List<int> Throws { get; set; }        
         public string ResultsInRoundsFormatted { get => String.Join("  |  ", Throws); }
         public int Sum { get => CalculateResults(); }
+        private List<Frame> Frames { get; set; }
 
         public PlayerResults()
         {
@@ -41,17 +41,20 @@ namespace Bowling.Model
                     continue;
                 }
 
+                if (frame.IsStrike())
+                {
+                    if (Frames[i + 1].IsStrike())
+                        res += 10;
+
+                    res += frame.FrameSum() + Frames[i + 1].FrameSum();
+                    continue;
+                }
+
                 if (frame.IsSpare())
                 {
                     res += frame.FrameSum() + Frames[i + 1].FirstThrown();
                     continue;
-                }
-
-                if (frame.IsStrike())
-                {
-                    res += frame.FrameSum() + Frames[i + 1].FrameSum();
-                    continue;
-                }
+                }                
             }
 
             return res;
@@ -59,6 +62,7 @@ namespace Bowling.Model
 
         private void FillFrames()
         {
+            Frames.Clear();
             int throwIdx = 0;
             for (int i = 0; i < 11; i++)
             {

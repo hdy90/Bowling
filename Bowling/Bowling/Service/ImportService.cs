@@ -31,7 +31,7 @@ namespace Bowling.Service
             }            
         }
 
-        private static void Start(string filePath, ObservableCollection<PlayerResults> bowlingList)
+        private static void Start(string filePath, ObservableCollection<PlayerResults> playerResults)
         {
             string[] data = System.IO.File.ReadAllLines(filePath);
             bool newPlayer = true;
@@ -43,8 +43,8 @@ namespace Bowling.Service
             {
                 if (newPlayer)
                 {
-                    bowlingList.Add(new PlayerResults());
-                    tmpPlayer = bowlingList.Last();
+                    playerResults.Add(new PlayerResults());
+                    tmpPlayer = playerResults.Last();
                     tmpPlayer.PlayerName = line;
 
                     newPlayer = !newPlayer;
