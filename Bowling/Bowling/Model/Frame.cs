@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,10 @@ namespace Bowling.Model
     {
         private int _firstThrow { get; set; }
         private int _secondThrow { get; set; }
+
+        public int FirstThrow { get => this._firstThrow; }
+        public int SecondThrow { get => this._secondThrow; }
+        public string StrikeSpareDescription { get => GetSpareDescription(); }
 
         public Frame() 
         {
@@ -37,9 +42,11 @@ namespace Bowling.Model
             return _firstThrow + _secondThrow;
         }
 
-        public int FirstThrown()
+        public string GetSpareDescription()
         {
-            return _firstThrow;
+            string result = (IsStrike() ? "Strike" : "") + (IsSpare() && !IsStrike() ? "Spare" : "");
+
+            return result;
         }
     }
 }

@@ -1,20 +1,7 @@
-﻿using Bowling.Model;
-using Bowling.Service;
-using Bowling.ViewModel;
+﻿using Bowling.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bowling
 {
@@ -27,6 +14,40 @@ namespace Bowling
         {
             InitializeComponent();
             DataContext = new BowlingViewModel();
+        }
+
+        private void dgFrames_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void btnExpandCollapseClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Button expandCollapseButton = (Button)sender;
+                if (expandCollapseButton == null)
+                    return;
+
+                DataGridRow dataGridRow = DataGridRow.GetRowContainingElement(expandCollapseButton);
+                if (dataGridRow == null)
+                    return;
+
+                if (expandCollapseButton.Content.ToString() == "+")
+                {
+                    dataGridRow.DetailsVisibility = Visibility.Visible;
+                    expandCollapseButton.Content = "-";
+                }
+                else
+                {
+                    dataGridRow.DetailsVisibility = Visibility.Collapsed;
+                    expandCollapseButton.Content = "+";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

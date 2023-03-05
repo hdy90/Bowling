@@ -14,7 +14,7 @@ namespace Bowling.Model
         public List<int> Throws { get; set; }        
         public string ResultsInRoundsFormatted { get => String.Join("  |  ", Throws); }
         public int Sum { get => CalculateResults(); }
-        private List<Frame> Frames { get; set; }
+        public List<Frame> Frames { get; }
 
         public PlayerResults()
         {
@@ -52,7 +52,7 @@ namespace Bowling.Model
 
                 if (frame.IsSpare())
                 {
-                    res += frame.FrameSum() + Frames[i + 1].FirstThrown();
+                    res += frame.FrameSum() + Frames[i + 1].FirstThrow;
                     continue;
                 }                
             }
